@@ -1,0 +1,76 @@
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd" >
+  
+<changeSet author="mauro" id="m1">
+	<sql>
+		CREATE SCHEMA basketstats;
+	</sql>
+</changeSet>
+<changeSet author="mauro" id="m2">
+    <createTable 
+            tableName="history">
+	    <column name="team" type="varchar(255)"/>
+        <column name="player" type="varchar(255)"/>
+        <column name="number" type="number"/>
+        <column name="twopoint" type="number"/>
+        <column name="thtreepoint" type="number"/>
+        <column name="defreb" type="number"/>
+        <column name="offreb" type="number"/>
+        <column name="assist" type="number"/>
+        <column name="ballsteal" type="number"/>
+        <column name="ballloose" type="number"/>
+        <column name="block" type="number"/>
+        <column name="foul" type="number"/>
+        
+    </createTable>
+    
+     <addPrimaryKey 
+            columnNames="team, player,number"
+            constraintName="pk_history"
+            tableName="history"/>    
+</changeSet>
+
+<changeSet author="mauro" id="m3">
+    <createTable 
+            tableName="players">
+        
+        <column name="team" type="varchar(255)"/>
+        <column name="player" type="varchar(255)"/>
+        <column name="number" type="number"/>
+    </createTable>
+    <addPrimaryKey 
+       columnNames="team, player,number"
+       constraintName="pk_players"
+       tableName="players"/>    
+</changeSet>
+<changeSet author="mauro" id="m4">
+    <createTable 
+            tableName="teams">
+        <column name="team" type="varchar(255)"/>
+    </createTable>
+    <addPrimaryKey 
+       columnNames="team"
+       constraintName="pk_teams"
+       tableName="teams"/> 
+</changeSet>
+  
+<changeSet author="mauro" id="m5">
+    <createTable 
+            tableName="games">
+        <column name="home" type="boolean"/>
+        <column name="adversary" type="varchar(255)"/>
+	    <column name="team" type="varchar(255)"/>
+        <column name="date" type="date"/>
+    </createTable>
+    <addPrimaryKey 
+            columnNames="team, date"
+            constraintName="pk_games"
+            tableName="games"/>    
+</changeSet>
+</databaseChangeLog>

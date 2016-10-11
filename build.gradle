@@ -1,0 +1,58 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'io.spring.dependency-management' 
+apply plugin: 'war'
+
+compileJava.options.encoding = 'UTF-8'
+
+war {
+}
+
+sourceSets {
+   main {
+       java.srcDirs = ['src/main/java', 'src/rest/java', 'src/main/jpa']
+   }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")	
+    compile("org.springframework.boot:spring-boot-starter-data-solr")
+    compile("org.springframework.boot:spring-boot-starter-hateoas")
+    compile('org.liquibase:liquibase-core')
+    compile("org.json:json:20141113")
+    compile("org.postgresql:postgresql:9.4-1201-jdbc4")
+   	compile("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.1")
+   	compile("org.codehaus.woodstox:woodstox-core-asl:4.4.1")
+	compile group: 'org.postgresql', name: 'postgresql', version: '9.4.1211.jre7'
+	compile ("it.mauro:statBasketJPA:0.1.0")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test") 
+    testCompile("com.jayway.jsonpath:json-path-assert:0.8.1") 
+    
+}
