@@ -14,7 +14,8 @@
 </changeSet>
 <changeSet author="mauro" id="m2">
     <createTable 
-            tableName="history">
+            tableName="history"
+            schemaName="basketstats">
 	    <column name="team" type="varchar(255)"/>
         <column name="player" type="varchar(255)"/>
         <column name="number" type="number"/>
@@ -27,41 +28,47 @@
         <column name="ballloose" type="number"/>
         <column name="block" type="number"/>
         <column name="foul" type="number"/>
-        
+        <column name="minutes" type="varchar(255)"/>   
+        <column name="date" type="date"/>             
     </createTable>
     
      <addPrimaryKey 
-            columnNames="team, player,number"
+            columnNames="team, player"
             constraintName="pk_history"
+            schemaName="basketstats"
             tableName="history"/>    
 </changeSet>
 
 <changeSet author="mauro" id="m3">
     <createTable 
-            tableName="players">
-        
+    		schemaName="basketstats"
+            tableName="players">    
         <column name="team" type="varchar(255)"/>
         <column name="player" type="varchar(255)"/>
         <column name="number" type="number"/>
     </createTable>
     <addPrimaryKey 
-       columnNames="team, player,number"
+       schemaName="basketstats"
+       columnNames="team, player"
        constraintName="pk_players"
        tableName="players"/>    
 </changeSet>
 <changeSet author="mauro" id="m4">
     <createTable 
+	       schemaName="basketstats"
             tableName="teams">
         <column name="team" type="varchar(255)"/>
     </createTable>
     <addPrimaryKey 
        columnNames="team"
+       schemaName="basketstats"
        constraintName="pk_teams"
        tableName="teams"/> 
 </changeSet>
   
 <changeSet author="mauro" id="m5">
     <createTable 
+    		schemaName="basketstats"
             tableName="games">
         <column name="home" type="boolean"/>
         <column name="adversary" type="varchar(255)"/>
@@ -69,8 +76,38 @@
         <column name="date" type="date"/>
     </createTable>
     <addPrimaryKey 
+    		schemaName="basketstats"
             columnNames="team, date"
             constraintName="pk_games"
             tableName="games"/>    
 </changeSet>
+<changeSet author="mauro" id="m6">
+     <dropColumn 
+            columnName="thtreepoint"
+            schemaName="basketstats"
+            tableName="history"/>
+     <dropColumn 
+            columnName="twopoint"
+            schemaName="basketstats"
+            tableName="history"/>
+	<addColumn 
+            schemaName="basketstats"
+            tableName="history">
+			<column name="twopoint" type="float"/>
+     </addColumn>
+     <addColumn 
+            schemaName="basketstats"
+            tableName="history">
+            <column name="threepoint" type="float"/>
+     </addColumn>        
+</changeSet>
+<changeSet id="m7" author="mauro">
+
+     <addColumn 
+            schemaName="basketstats"
+            tableName="history">
+            <column name="point" type="number"/>
+     </addColumn>
+</changeSet>
+
 </databaseChangeLog>

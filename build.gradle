@@ -21,6 +21,17 @@ apply plugin: 'war'
 compileJava.options.encoding = 'UTF-8'
 
 war {
+	manifest {
+        attributes("Main-Class": "it.mauro.StatBasketServerApplication")
+    }
+}
+jar {
+	manifest {
+        attributes("Main-Class": "it.mauro.StatBasketServerApplication")
+    }
+}
+springBoot {
+  mainClass = "it.mauro.StatBasketServerApplication"
 }
 
 sourceSets {

@@ -8,6 +8,6 @@ import it.mauro.basketstatjpa.Teams;
 
 public interface TeamRepository extends BaseRepository<Teams, String>{
 	
-	@Query("SELECT t FROM Team t;")
+	@Query("SELECT t FROM Teams t")
 	List<Teams> selectAll();
 }
