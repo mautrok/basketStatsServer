@@ -1,0 +1,74 @@
+var modificaController=angular.module('modificaController',[])
+
+modificaController.controller('modificaCtrl',function($scope,$location,teamService,$state){
+    var teamnature=$state.params.teamnature
+    $scope.team={players:[]}
+    $scope.teams;
+    teamService.downloadTeams()
+        .success(function(data){$scope.teams=data.teamsList;console.info($scope.teams)})
+        .error(function(data){console.error(data)})
+    $scope.player={name:'',number:''};
+    $scope.addPlayer=function(player){
+        $scope.error=false;
+        $scope.team.players.push(player)
+        $scope.player={name:'',number:''}
+    }
+    $scope.remove=function(player){
+        $scope.error=false;
+        $scope.team.players=$scope.team.players.slice(0,$scope.team.players.indexOf(player))+$scope.team.players.slice($scope.team.players.indexOf(player)+1,$scope.team.players.length)
+    }
+    $scope.cancel=function(){
+        $scope.error=false;
+        $scope.team.players=[]
+        
+    }
+    
+    $scope.save=function(){
+        $scope.error=false;
+        if(teamnature=='home'){
+            teamService.saveTeam($scope.team,$scope.team_name)
+                .success(function(data){console.log(data)})
+                .error(function(data){console.error(data)})
+            teamService.setTeam($scope.team,$scope.team_name)
+        }
+        else{
+            teamService.saveTeam($scope.team,$scope.team_name)
+                .success(function(data){console.log(data)})
+                .error(function(data){console.error(data)})
+            teamService.setTeamAdv($scope.team,$scope.team_name)
+        }
+    }
+    $scope.downloadTeam=function(){
+        $scope.error=false;
+        if(teamnature=='home'){
+            if($scope.team_name){
+                teamService.downloadTeam($scope.team_name)
+                    .success(function(data){
+                        $scope.team.players=data.playerList
+                        teamService.setTeam($scope.team,$scope.team_name)
+                    })
+                    .error(function(data){console.errorlog(data)})
+            }
+            else{
+                $scope.error=true
+                $scope.errorMessage=constants.TEAM_NAME_EMPTY
+            }
+        }
+        else{
+            if($scope.team_name){
+                teamService.downloadTeam($scope.team_name)
+                    .success(function(data){
+                        $scope.team.players=data.playerList
+                        teamService.setTeamAdv($scope.team,$scope.team_name)
+                        })
+                    .error(function(data){console.error(data)})
+            }
+            else{
+                $scope.error=true
+                $scope.errorMessage=constants.TEAM_NAME_EMPTY
+            }
+        }
+        
+    }
+    $scope.team_name;
+})

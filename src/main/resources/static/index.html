@@ -1,0 +1,38 @@
+<html ng-app='myapp'>
+    <head>
+        <script src="bower_components/bootsrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <link href="app/styles/main.css" rel="stylesheet" type="text/css">
+        <link href="app/styles/statbasket.css" rel="stylesheet" type="text/css">
+        <script src="app/service/app.js"></script>
+        <script src="app/controller/gameController.js"></script>
+        <script src="app/controller/modificaController.js"></script>
+        <script src="app/controller/navbarcontroller.js"></script>
+        <script src="app/service/constants.js"></script>
+        <script src="app/service/teamservice.js"></script>
+        <script src="app/service/route.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse" ng-controller="navbarCtrl">
+            <div class="container-fluid">
+                <div class="btn-group" uib-dropdown is-open="status.isopen">
+                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                        Opzioni<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                        <li role="menuitem"><a href="#team">Partita</a></li>
+                        <li role="menuitem"><a ng-click="modTeam('home')">Modifica squadra</a></li>
+                        <li role="menuitem"><a ng-click="modTeam('adv')">Avversari</a></li>
+                        <li class="divider"></li>
+                        <li role="menuitem"><a href="#">Esci</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="main" id="main" ui-view autoscroll="header">
+        </div>
+    </body>
+</html>

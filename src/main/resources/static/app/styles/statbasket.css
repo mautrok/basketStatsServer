@@ -1,0 +1,17 @@
+.menuitem > a,.menuitem > a:hover,.menuitem > a:focus,.menuitem > a:active{
+    cursor: pointer;
+} 
+.shirt_button{
+    width: 72px;
+    height: 190px;
+}
+.shirt_button_active{
+    background-color:  #4caf50;
+}
+
+.shirt_button_disactive{
+    background-color:  #e51c23;
+}
+.player_button_div{
+    display: inline;
+}

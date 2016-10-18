@@ -1,0 +1,168 @@
+<div>
+    <!--pagina del team
+    qui si mostra il team o se ne fa uno nuovo e si avvia la sessione della partita
+    fino che la sessione è attiva è possibile modificare statistiche
+    e i minuti in campo-->
+    <legend>Partita</legend>
+    <div>
+        <button class="btn btn-primary" ng-click="save()">Salva</button>
+        <button class="btn btn-primary" ng-click="startGame()">Inizia</button>
+        <button class="btn btn-danger" ng-click="stopGame()">Stop</button>
+    </div>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <th ng-repeat="field in fields">
+                {{field.title}}
+            </th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="player in team.players"  ng-if="player.active">
+                <td>
+                    {{player.name}} {{player.number}}
+                </td>
+                <td>
+                     <a class="btn btn-default btn-sm" ng-click="player.twopoint.done=start==true?player.twopoint.done+1:player.twopoint.done;player.point=start==true?player.point+2:player.point">x</a>
+                     <a class="btn btn-default btn-sm" ng-click="player.twopoint.miss=start==true?player.twopoint.miss+1:player.twopoint.miss">o</a>
+                     <a class="btn btn-default btn-sm" ng-click="player.twopoint.miss=start==true?player.twopoint.miss>0?player.twopoint.miss-1:0:player.twopoint.miss;player.twopoint.done=start==true?player.twopoint.done>0?player.twopoint.done-1:0:player.twopoint.done;player.point=start==true?player.point>1?player.point-2:0:player.point">-</a>
+                     {{player.twopoint.done}}/{{player.twopoint.miss}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.threepoint.done=start==true?player.threepoint.done+1:player.threepoint.done;player.point=start==true?player.point+3:player.point">x</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.threepoint.miss=start==true?player.threepoint.miss+1:player.threepoint.miss">o</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.threepoint.miss=start==true?player.threepoint.miss>0?player.threepoint.miss-1:0:player.threepoint.miss;player.threepoint.done=start==true?player.threepoint.done>0?player.threepoint.done-1:0:player.threepoint.done;player.point=start==true?player.point>1?player.point-3:0:player.point">-</a>
+                    {{player.threepoint.done}}/{{player.threepoint.miss}}
+                </td>
+                <td>
+                     <a class="btn btn-default btn-sm" ng-click="player.assist=start==true?player.assist+1:player.assist">+</a>
+                     <a class="btn btn-default btn-sm" ng-click="player.assist=start==true?player.assist>0?player.assist-1:0:player.assist">-</a>
+                     {{player.assist}}
+                </td>
+                <td> 
+                    <a class="btn btn-default btn-sm" ng-click="player.defreb=start==true?player.defreb+1:player.defreb">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.defreb=start==true?player.defreb>0?player.defreb-1:0:player.defreb">-</a>
+                    {{player.defreb}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.offreb=start==true?player.offreb+1:player.offreb">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.offreb=start==true?player.offreb>0?player.offreb-1:0:player.offreb">-</a>
+                    {{player.offreb}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.ballsteal=start==true?player.ballsteal+1:player.ballsteal">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.ballsteal=start==true?player.ballsteal>0?player.ballsteal-1:0:player.ballsteal">-</a>
+                    {{player.ballsteal}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.ballloose=start==true?player.ballloose+1:player.ballloose">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.ballloose=start==true?player.ballloose>0?player.ballloose-1:0:player.ballloose">-</a>
+                    {{player.ballloose}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.block=start==true?player.block+1:player.block">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.block=start==true?player.block>0?player.block-1:0:player.block">-</a>
+                    {{player.block}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.turnover=start==true?player.turnover+1:player.turnover">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.turnover=start==true?player.turnover>0?player.turnover-1:0:player.turnover">-</a>
+                    {{player.turnover}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.foul=start==true?player.foul+1:player.foul">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.foul=start==true?player.foul>0?player.foul-1:0:player.foul">-</a>
+                    {{player.foul}}
+                </td>
+                <td>
+                    {{player.point}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <div ng-repeat="player in team.players" class="player_button_div">
+        <button ng-class="player.active==true?'shirt_button_active':'shirt_button_disactive'" ng-click="addPlayerOnField(player,0)">
+            <img src="app/styles/images/shirt.png"/>
+            <span>{{player.number}}</span>
+        </button>  
+    </div>
+</div>
+<legend>AVVERSARI</legend>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <th ng-repeat="field in fields">
+                {{field.title}}
+            </th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="player in teamAdv.players" ng-if="player.active">
+                <td>
+                    {{player.name}} {{player.number}}
+                </td>
+               <td>
+                     <a class="btn btn-default btn-sm" ng-click="player.twopoint.done=start==true?player.twopoint.done+1:player.twopoint.done;player.point=start==true?player.point+2:player.point">x</a>
+                     <a class="btn btn-default btn-sm" ng-click="player.twopoint.miss=start==true?player.twopoint.miss+1:player.twopoint.miss">o</a>
+                     <a class="btn btn-default btn-sm" ng-click="player.twopoint.miss=start==true?player.twopoint.miss>0?player.twopoint.miss-1:0:player.twopoint.miss;player.twopoint.done=start==true?player.twopoint.done>0?player.twopoint.done-1:0:player.twopoint.done;player.point=start==true?player.point>1?player.point-2:0:player.point">-</a>
+                     {{player.twopoint.done}}/{{player.twopoint.miss}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.threepoint.done=start==true?player.threepoint.done+1:player.threepoint.done;player.point=start==true?player.point+3:player.point">x</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.threepoint.miss=start==true?player.threepoint.miss+1:player.threepoint.miss">o</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.threepoint.miss=start==true?player.threepoint.miss>0?player.threepoint.miss-1:0:player.threepoint.miss;player.threepoint.done=start==true?player.threepoint.done>0?player.threepoint.done-1:0:player.threepoint.done;player.point=start==true?player.point>1?player.point-3:0:player.point">-</a>
+                    {{player.threepoint.done}}/{{player.threepoint.miss}}
+                </td>
+                <td>
+                     <a class="btn btn-default btn-sm" ng-click="player.assist=start==true?player.assist+1:player.assist">+</a>
+                     <a class="btn btn-default btn-sm" ng-click="player.assist=start==true?player.assist>0?player.assist-1:0:player.assist">-</a>
+                     {{player.assist}}
+                </td>
+                <td> 
+                    <a class="btn btn-default btn-sm" ng-click="player.defreb=start==true?player.defreb+1:player.defreb">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.defreb=start==true?player.defreb>0?player.defreb-1:0:player.defreb">-</a>
+                    {{player.defreb}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.offreb=start==true?player.offreb+1:player.offreb">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.offreb=start==true?player.offreb>0?player.offreb-1:0:player.offreb">-</a>
+                    {{player.offreb}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.ballsteal=start==true?player.ballsteal+1:player.ballsteal">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.ballsteal=start==true?player.ballsteal>0?player.ballsteal-1:0:player.ballsteal">-</a>
+                    {{player.ballsteal}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.ballloose=start==true?player.ballloose+1:player.ballloose">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.ballloose=start==true?player.ballloose>0?player.ballloose-1:0:player.ballloose">-</a>
+                    {{player.ballloose}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.block=start==true?player.block+1:player.block">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.block=start==true?player.block>0?player.block-1:0:player.block">-</a>
+                    {{player.block}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.turnover=start==true?player.turnover+1:player.turnover">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.turnover=start==true?player.turnover>0?player.turnover-1:0:player.turnover">-</a>
+                    {{player.turnover}}
+                </td>
+                <td>
+                    <a class="btn btn-default btn-sm" ng-click="player.foul=start==true?player.foul+1:player.foul">+</a>
+                    <a class="btn btn-default btn-sm" ng-click="player.foul=start==true?player.foul>0?player.foul-1:0:player.foul">-</a>
+                    {{player.foul}}
+                </td>
+                <td>
+                    {{player.point}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <div ng-repeat="player in teamAdv.players" class="player_button_div">
+        <button ng-class="player.active==true?'shirt_button_active':'shirt_button_disactive'" ng-click="addPlayerOnField(player,1)">
+            <img src="app/styles/images/shirt.png"/>
+            <span>{{player.number}}</span>
+        </button>  
+    </div>
+</div>
